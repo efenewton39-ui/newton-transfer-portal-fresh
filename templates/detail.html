@@ -1,1 +1,49 @@
-{% extends "base.html" %}{% block content %}<section class="card"><div class="no-print"><button type="button" onclick="window.print()">Save / Print PDF</button> <a class="btn secondary" href="/dashboard">Dashboard</a> <a class="btn secondary" href="/{{t.id}}/edit">Edit record</a></div><h1>Transfer record {{t.ref}}</h1><p><b>Record notice:</b> This document records information entered by an administrator. It is not proof of payment or confirmation that money was sent.</p><p>Status: <span class="pill">{{t.status}}</span></p><div class="row"><div><p><b>Sender</b><br>{{t.sender}}</p><p><b>Recipient</b><br>{{t.recipient}}</p><p><b>Amount</b><br>{{t.amount}} {{t.currency}}</p></div><div><p><b>Destination</b><br>{{t.destination or '—'}}</p><p><b>Provider</b><br>{{t.provider or '—'}}</p><p><b>Created</b><br>{{t.created}}</p><p><b>Updated</b><br>{{t.updated}}</p></div></div><p><b>Note:</b> {{t.note or '—'}}</p></section><section class="card no-print"><h2>History</h2>{% for h in history %}<p><b>{{h.action}}</b> — {{h.details}}<br>{{h.created}}</p>{% else %}<p>No history.</p>{% endfor %}</section>{% endblock %}
+
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <div class="no-print">
+    <button type="button" onclick="window.print()">Save / Print PDF</button>
+    <a class="btn secondary" href="/dashboard">Dashboard</a>
+    <a class="btn secondary" href="/{{t.id}}/edit">Edit record</a>
+  </div>
+
+  <header style="text-align:center; padding:24px 8px;">
+    <h1 style="letter-spacing:1px;">INTERNATIONAL WORLDWIDE LOGISTICS</h1>
+    <p>Transfer Records &amp; Logistics Management</p>
+  </header>
+
+  <hr>
+
+  <h2>Transfer Record</h2>
+  <p><b>Reference:</b> {{t.ref}}</p>
+  <p><b>Status:</b> <span class="pill">{{t.status}}</span></p>
+
+  <div class="row">
+    <div>
+      <p><b>Sender</b><br>{{t.sender}}</p>
+      <p><b>Recipient</b><br>{{t.recipient}}</p>
+      <p><b>Amount</b><br>{{t.amount}} {{t.currency}}</p>
+    </div>
+    <div>
+      <p><b>Destination</b><br>{{t.destination or '—'}}</p>
+      <p><b>Provider reference</b><br>{{t.provider or '—'}}</p>
+      <p><b>Created</b><br>{{t.created}}</p>
+      <p><b>Last updated</b><br>{{t.updated}}</p>
+    </div>
+  </div>
+
+  <hr>
+  <p><b>Additional note</b><br>{{t.note or '—'}}</p>
+  <p class="print-only"><small>Administrative record; payment status is subject to confirmation.</small></p>
+</section>
+
+<section class="card no-print">
+  <h2>Record History</h2>
+  {% for h in history %}
+    <p><b>{{h.action}}</b> — {{h.details}}<br>{{h.created}}</p>
+  {% else %}
+    <p>No history available.</p>
+  {% endfor %}
+</section>
+{% endblock %}
